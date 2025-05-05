@@ -18,13 +18,13 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
-        GameManager.Instance.GameStart += StartTutorial;
+        //GameManager.Instance.GameStart += StartTutorial;
     }
 
     private void OnDisable()
     {
-        if (GameManager.Instance)
-            GameManager.Instance.GameStart -= StartTutorial;
+        //if (GameManager.Instance)
+            //GameManager.Instance.GameStart -= StartTutorial;
     }
 
 

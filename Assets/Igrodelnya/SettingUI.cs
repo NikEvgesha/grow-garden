@@ -15,9 +15,9 @@ public class SettingUI : MonoBehaviour
     {
         _isOpen = !_isOpen;
 
-        _lobbyButtons.SetActive(GameManager.Instance);
+        //_lobbyButtons.SetActive(GameManager.Instance);
 
-        ControlManager.Instance.CursorActive = _isOpen;
+        //ControlManager.Instance.CursorActive = _isOpen;
         _panel.SetActive(_isOpen);
         PauseManager.Instance.SetPause(_isOpen, false);
     }
