@@ -6,23 +6,27 @@ public class SettingUI : MonoBehaviour
     [SerializeField] private Scrollbar _musicVolume;
     [SerializeField] private Scrollbar _soundVolume;
     [SerializeField] private GameObject _panel;
-
-
+    [SerializeField] private GameObject _exitButton;
     [SerializeField] private GameObject _lobbyButtons;
 
     private bool _isOpen;
     public void ToggleOpen()
     {
         _isOpen = !_isOpen;
-
-        //_lobbyButtons.SetActive(GameManager.Instance);
-
-        //ControlManager.Instance.CursorActive = _isOpen;
+        _lobbyButtons.SetActive(GameManager.Instance);
+        if (!ControlManager.Instance.UseTouchControl)
+            ControlManager.Instance.CursorActive = _isOpen;
         _panel.SetActive(_isOpen);
+        //_exitButton.SetActive(_isOpen);
         PauseManager.Instance.SetPause(_isOpen, false);
+        
+        if (_isOpen)
+            PlayerInput.Instance.AOpenWindow?.Invoke(this);
+        
     }
     private void Start()
     {
+        PlayerInput.Instance.APause += ToggleOpen;
         if (SoundManager.Instance.IsReady)
         {
             SetValues();
@@ -36,6 +40,7 @@ public class SettingUI : MonoBehaviour
     private void OnDisable()
     {
         SoundManager.Instance.Ready -= SetValues;
+        PlayerInput.Instance.APause -= ToggleOpen;
     }
 
     private void SetValues()

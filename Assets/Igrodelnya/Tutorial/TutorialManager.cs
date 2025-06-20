@@ -18,18 +18,21 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
-        //GameManager.Instance.GameStart += StartTutorial;
+        GameManager.Instance.GameStart += StartTutorial;
     }
 
     private void OnDisable()
     {
-        //if (GameManager.Instance)
-            //GameManager.Instance.GameStart -= StartTutorial;
+        if (GameManager.Instance)
+            GameManager.Instance.GameStart -= StartTutorial;
     }
 
 
     public void StartTutorial()
     {
+        if (SaveManager.Instance.GetTutorialProgress())
+            return;
+
         if (_tutorialSteps.Count <= 0)
         {
             Debug.Log("Не заполнены Шаги тутера");
@@ -53,6 +56,7 @@ public class TutorialManager : MonoBehaviour
         } 
         else
         {
+            SaveManager.Instance.SaveTutorialProgress(true);
             Debug.Log("Тутор завершон");
         }
     }
