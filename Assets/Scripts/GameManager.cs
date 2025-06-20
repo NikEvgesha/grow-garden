@@ -7,10 +7,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get { return _instance; } private set { } }
 
 
-    //[SerializeField] private Player _player;
+    [SerializeField] private Player _player;
     [SerializeField] private Transform _playerSpawnPoint;
     [SerializeField] private GameObject _startQuest;
-    //public Player Player { get { return _player; } }
+    public Player Player { get { return _player; } }
 
     public bool isEndGame = false;
 
@@ -39,11 +39,11 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        /*if (_player == null)
+        if (_player == null)
         {
-            _player = PlayerManager.Instance.GetComponent<Player>();
+            _player = FindObjectOfType<Player>();
             //PlayerMovement.Instance.Teleport(_playerSpawnPoint);
-        }*/
+        }
 
         GameStart?.Invoke();
 

@@ -12,7 +12,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
     private float yaw = 0f;
     private float pitch = 10f;
-    private bool isRotating = true;
+    private bool isRotating = false;
 
     private void Start()
     {
@@ -29,13 +29,16 @@ public class ThirdPersonCamera : MonoBehaviour
             Cursor.visible = !isRotating;
         }
 
-        // On left-click, lock and hide cursor
-        if (Input.GetMouseButtonDown(0) && !isRotating)
+        if (Input.GetMouseButtonDown(1) && !isRotating)
         {
             isRotating = true;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
         }
+
+        if (Input.GetMouseButtonUp(1) && isRotating)
+        {
+            isRotating = false;
+        }
+
 
         // Mouse rotation
         if (isRotating)

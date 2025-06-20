@@ -1,3 +1,8 @@
+public enum UIHintType
+{
+    TooFar
+}
+
 public enum AchievementType
 {
     PlantTypes,
