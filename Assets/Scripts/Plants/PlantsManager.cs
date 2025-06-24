@@ -7,6 +7,7 @@ public class PlantsManager : MonoBehaviour
 
 
     [SerializeField] private float _maxWeightMiltiplier;
+    [SerializeField] private AnimationCurve _weightMultiplierChance;
 
 
     private void Awake()
@@ -26,8 +27,8 @@ public class PlantsManager : MonoBehaviour
         if (plantData.Harvestable)
         {
             HarvestablePlant harvestable = plant.GetComponent<HarvestablePlant>();
+            harvestable.SetWeightMultiplier(GetRandomWeightMultiplier());
             harvestable.Init(plantData);
-            harvestable.SetWeight(GetRandomWeight(plantData.BaseWeight));
         }
         else
         {
@@ -41,11 +42,18 @@ public class PlantsManager : MonoBehaviour
 
 
 
-    private float GetRandomWeight(float baseWeight)
+    /*    private float GetRandomWeight(float baseWeight)
+        {
+            float random = Random.value;
+            float multiplier = Mathf.Lerp(1.0f, _maxWeightMiltiplier, 1.0f - Mathf.Sqrt(random));
+            return Mathf.Round(multiplier * 100f) / 100f;
+        }*/
+
+    private float GetRandomWeightMultiplier()
     {
-        float multiplier = Random.Range(1.0f, _maxWeightMiltiplier);
-        float weight = Mathf.Round(baseWeight * multiplier * 100f) / 100f; // округляем до 2 знаков после запятой
-        return weight;
+        float random = Random.value;
+        float multiplier = Mathf.Lerp(1.0f, _maxWeightMiltiplier, 1.0f - Mathf.Sqrt(random));
+        return multiplier;
     }
 
 }

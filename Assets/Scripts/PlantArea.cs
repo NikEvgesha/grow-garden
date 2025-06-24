@@ -6,7 +6,6 @@ public class PlantArea : MonoBehaviour, IPointerClickHandler
     [SerializeField] private PlantData _plant; // DELETE
     [SerializeField] private float _maxPlantDistance = 5f;
 
-    private bool _playerInTrigger;
     public void OnPointerClick(PointerEventData eventData)
     {
 
@@ -29,19 +28,4 @@ public class PlantArea : MonoBehaviour, IPointerClickHandler
 
     }
 
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            _playerInTrigger = true;
-        }
-    }
-
-    public void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            _playerInTrigger = false;
-        }
-    }
 }

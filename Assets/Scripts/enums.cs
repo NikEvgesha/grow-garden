@@ -140,3 +140,12 @@ public enum SaveKey
 
 
 }
+
+
+public enum ItemType
+{
+    Seed,
+    Plant,
+    Fish,
+    Tool
+}

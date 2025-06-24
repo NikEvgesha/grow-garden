@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d05e8c9adef3594449258b38c5ab309d, type: 3}
+  m_Name: TomatoPlant
+  m_EditorClassIdentifier: 
+  _name: tomato_plant
+  _harvestable: 0
+  _baseCost: 0
+  _baseWeight: 1
+  _plantPrefab: {fileID: 8869182266606548585, guid: 16620b8a64b76ba408559dfad9062c71, type: 3}
+  _seedPrefab: {fileID: 5818566490930653712, guid: 16620b8a64b76ba408559dfad9062c71, type: 3}
+  _growTimeSeconds: 10
+  _plantIcon: {fileID: 21300000, guid: 28a34d8a3d8794d7fb7adb5e9f2e8f2e, type: 3}
+  _seedIcon: {fileID: 21300000, guid: ff95f66e252ce4588a7ebe6e1803774e, type: 3}
