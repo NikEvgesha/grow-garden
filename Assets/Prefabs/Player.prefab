@@ -126,6 +126,37 @@ Transform:
   - {fileID: 2527896004847667565}
   m_Father: {fileID: 1167064766381340380}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1408628016255940072
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4514682090280417607}
+  m_Layer: 0
+  m_Name: CastPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4514682090280417607
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408628016255940072}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.042, y: 1.449, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4522503174612599094}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2382997931420226556
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,6 +201,11 @@ GameObject:
   - component: {fileID: 1257582221167314046}
   - component: {fileID: 2857395989201957552}
   - component: {fileID: 8292388738008190177}
+  - component: {fileID: 8626101982059335777}
+  - component: {fileID: 3963471158194754884}
+  - component: {fileID: 1897452007310422591}
+  - component: {fileID: 1515569361394932701}
+  - component: {fileID: 6366679641079446360}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -193,6 +229,7 @@ Transform:
   - {fileID: 4988895908083940362}
   - {fileID: 8170642067827116165}
   - {fileID: 3281979916935526559}
+  - {fileID: 4514682090280417607}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &1257582221167314046
@@ -249,6 +286,85 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3017097e3cb8db41910fa847e37a15a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8626101982059335777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2627000563368437480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b80ae6249f3e77d46aacc4b9ce7ac765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseWaitTime: 2
+  _clickRevard: 1
+  _defaultFish: {fileID: 11400000, guid: 7291b4f364fec104b8dfa03dab20a23b, type: 2}
+--- !u!114 &3963471158194754884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2627000563368437480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313ed6393a6768745919babb449c9c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _containerSize: 0
+  _fishSpeed: 200
+  _playerSize: 0
+  _regionSpeed: 5
+  _fillRate: 0.2
+  _initialFill: 0.1
+--- !u!114 &1897452007310422591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2627000563368437480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99e135915eefcde4cb63326ea05253f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _TestActivate: 0
+  _pingPongSpeed: 1
+  _floatPrefab: {fileID: 4708117719320592293, guid: 5ef17781a72c0fa4faf90abbff541686, type: 3}
+  _castPoint: {fileID: 4514682090280417607}
+  _maxForce: 15
+  _elevation: 30
+--- !u!114 &1515569361394932701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2627000563368437480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e8e93494a327684f8312327b40dbcab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _TestActivate: 0
+  _fishingRodThrower: {fileID: 1897452007310422591}
+  _fishBiteDelay: {fileID: 8626101982059335777}
+  _fishCatchController: {fileID: 3963471158194754884}
+--- !u!114 &6366679641079446360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2627000563368437480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 694b93e2de44fd74d8669450f6cc339e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2850063505008543919

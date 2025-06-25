@@ -123,6 +123,7 @@ public class PlayerInput : MonoBehaviour
     private bool _useItem;
     private bool _reload;
     private bool _attack;
+    private bool _stopAttack;
     private bool _healing;
     private bool _rotationX;
     private bool _rotationY;
@@ -141,6 +142,7 @@ public class PlayerInput : MonoBehaviour
     public Action AUseItem;
     public Action AReload;
     public Action AAttack;
+    public Action AStopAttack;
     public Action AHealing;
     public Action APause;
     public Action<MonoBehaviour> AOpenWindow;
@@ -176,7 +178,7 @@ public class PlayerInput : MonoBehaviour
             ControlManager.Instance.CursorActive = !ControlManager.Instance.CursorActive;
         }*/
 
-        if (ControlManager.Instance.UseTouchControl)
+        if (ControlManager.Instance && ControlManager.Instance.UseTouchControl)
         {
             _jump = _touchControls.jumpButton.IsTriggered;
             _pickUp = _touchControls.pickUpButton.IsTriggered;
@@ -202,14 +204,18 @@ public class PlayerInput : MonoBehaviour
             _rotationY = _interactionHold;
             _rotationX = Input.GetKey(KeyCode.Q);
             _pause = Input.GetKeyDown(KeyCode.P);
-            if (!ControlManager.Instance.CursorActive)
+            if (ControlManager.Instance && !ControlManager.Instance.CursorActive)
             {
                 _pickUp = Input.GetMouseButtonDown(1);
                 //_useItem = Input.GetMouseButtonDown(0);
                 _attack = Input.GetMouseButton(0);
                 _healing = _attack;
             }
+
+            _attack = Input.GetMouseButton(0);
         }
+        _stopAttack = !_attack;
+
         if (_jump) AJump?.Invoke();
         if (_sprint) ASprint?.Invoke();
         if (_interaction) AInteraction?.Invoke();
@@ -222,6 +228,7 @@ public class PlayerInput : MonoBehaviour
         if (_useItem) AUseItem?.Invoke();
         if (_reload) AReload?.Invoke();
         if (_attack) AAttack?.Invoke();
+        if (_stopAttack) AStopAttack?.Invoke();
         if (_healing) AHealing?.Invoke();
         if (_pause) APause?.Invoke();
 
@@ -232,7 +239,7 @@ public class PlayerInput : MonoBehaviour
     private void UpdateMovement()
     {
 
-        if (ControlManager.Instance.UseTouchControl)
+        if (ControlManager.Instance && ControlManager.Instance.UseTouchControl)
         {
             Movement = new Vector3(_touchControls.moveJoystick.Horizontal(), 0f, _touchControls.moveJoystick.Vertical());
         } else
@@ -251,7 +258,7 @@ public class PlayerInput : MonoBehaviour
 
     public void UpdateRotation()
     {
-        if (ControlManager.Instance.UseTouchControl)
+        if (ControlManager.Instance && ControlManager.Instance.UseTouchControl)
         {
             Rotation = _touchControls.cameraTouchController.GetRotationInput();
             //Rotation = TCKInput.GetAxis("Touchpad");
