@@ -39,7 +39,7 @@ public class FishingRodThrower : MonoBehaviour
     void ThrowFloat(float normalizedPower)
     {
         if (!_activeFloat)
-            _activeFloat = Instantiate(_floatPrefab);
+            _activeFloat = Instantiate(_floatPrefab, _castPoint.position, _floatPrefab.rotation);
 
         _activeFloat.position = _castPoint.position;
 

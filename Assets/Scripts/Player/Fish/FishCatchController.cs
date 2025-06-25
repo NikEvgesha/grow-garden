@@ -51,6 +51,13 @@ public class FishCatchController : MonoBehaviour
         _fishGameUI.Progress = _initialFill;
         _containerSize = _fishGameUI.GetContainerSize();
         _playerSize = _fishGameUI.SizePlayer;
+
+        Vector2 fishCenter = new Vector2(0f, _fishGameUI.FishPosition.y);
+        Vector2 playerCenter = new Vector2(0f, _fishGameUI.PlayerPosition.y);
+
+        _fishGameUI.FishPosition = fishCenter;
+        _fishGameUI.PlayerPosition = playerCenter;
+
         PickNewTarget();
         _fishGameUI.StartGame();
         StartCoroutine(StartGame());
@@ -129,7 +136,7 @@ public class FishCatchController : MonoBehaviour
 
         // 4) Ограничиваем скорость
         _regionVelocity = Mathf.Clamp(_regionVelocity, -maxSpeed, +maxSpeed);
-        Debug.Log(_regionVelocity);
+        //Debug.Log(_regionVelocity);
         // 5) Перемещаем игрока
         Vector2 pos = _fishGameUI.PlayerPosition;
         pos.x += _regionVelocity * Time.deltaTime;
