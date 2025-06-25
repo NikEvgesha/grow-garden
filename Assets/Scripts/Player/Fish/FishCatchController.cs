@@ -15,6 +15,13 @@ public class FishCatchController : MonoBehaviour
     [SerializeField] private float _playerSizeMax = 0.4f;
     [SerializeField] private float _regionSpeed = 5f;            // Speed of region movement
 
+    [Header("Region Physics")]
+    [SerializeField] private float acceleration = 20f;     // сила, с которой Ђнакапливаетс€ї скорость
+    [SerializeField] private float maxSpeed = 6f;      // максимальна€ скорость смещени€
+    [SerializeField] private float drag = 5f;      // сопротивление (чем выше Ч тем быстрее тормозитс€)
+    [SerializeField] private float bounceDamping = 0.5f;    // сколько скорости остаЄтс€ после отскока (0Е1)
+
+
     [Header("Progress Settings")]
     [SerializeField] private float _fillRate = 0.2f;             // Rate of progress change per second
     [SerializeField] private float _initialFill = 0.1f;          // 10% initial fill
@@ -23,6 +30,8 @@ public class FishCatchController : MonoBehaviour
     private float _targetX;
     private float _currentFillRate;     // реальна€ скорость заполнени€ в этой игре
     private float _fishResistance = 1f; // сила рыбы: >1 Ч замедл€ет заливку, <1 Ч ускор€ет
+
+    private float _regionVelocity = 0f;
 
     private float _lerpT;        // накопленный параметр [0Е1]
     private Vector2 _startPos;   // точка старта при каждом новом движении
@@ -104,7 +113,46 @@ public class FishCatchController : MonoBehaviour
         rPos.x = Mathf.Clamp(rPos.x, -halfWidth + halfRegion, halfWidth - halfRegion);
         _fishGameUI.PlayerPosition = rPos;
     }
+    public void HandleRegionPhysics(float inputDir = -1)
+    {
+        if (!_playing) { return; }
+        // 1) –ассчитываем направление Ђсилыї
+        //inputDir = Input.GetMouseButton(0) ? +1f : -1f;
 
+        // 2) »нтегрируем ускорение
+        _regionVelocity += inputDir * acceleration * Time.deltaTime;
+
+        // 3) ƒобавл€ем Ђвоздушногої сопротивлени€ (драг)
+        //    сила торможени€ пропорциональна скорости
+        float dragForce = drag * _regionVelocity * Time.deltaTime;
+        _regionVelocity -= dragForce;
+
+        // 4) ќграничиваем скорость
+        _regionVelocity = Mathf.Clamp(_regionVelocity, -maxSpeed, +maxSpeed);
+        Debug.Log(_regionVelocity);
+        // 5) ѕеремещаем игрока
+        Vector2 pos = _fishGameUI.PlayerPosition;
+        pos.x += _regionVelocity * Time.deltaTime;
+
+        // 6) √раницы и отскок
+        float halfW = _containerSize * 0.5f;
+        float halfR = _playerSize * 0.5f;
+        float minX = -halfW + halfR;
+        float maxX = +halfW - halfR;
+
+        if (pos.x < minX)
+        {
+            pos.x = minX;
+            _regionVelocity = -_regionVelocity * bounceDamping;
+        }
+        else if (pos.x > maxX)
+        {
+            pos.x = maxX;
+            _regionVelocity = -_regionVelocity * bounceDamping;
+        }
+
+        _fishGameUI.PlayerPosition = pos;
+    }
     void UpdateProgress()
     {
         // Check if icon is within region

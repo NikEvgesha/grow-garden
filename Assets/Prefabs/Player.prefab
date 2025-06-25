@@ -463,6 +463,10 @@ MonoBehaviour:
   _playerSizeMin: 0.1
   _playerSizeMax: 0.4
   _regionSpeed: 5
+  acceleration: 1500
+  maxSpeed: 1000
+  drag: 1
+  bounceDamping: 0.35
   _fillRate: 0.1
   _initialFill: 0.3
 --- !u!114 &1897452007310422591
@@ -496,7 +500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8e93494a327684f8312327b40dbcab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _TestActivate: 1
+  _TestActivate: 0
   _fishingRodThrower: {fileID: 1897452007310422591}
   _powerFishUI: {fileID: 7923994698918677373}
   _fishBiteDelay: {fileID: 8626101982059335777}
