@@ -5,39 +5,23 @@ public class PowerFishUI : MonoBehaviour
 {
     [SerializeField] private Slider _powerSlider;
     [SerializeField] private GameObject _active;
-    private bool isActive;
-
-    private void Start()
-    {
-        Fishing.Instance.PowerWindup += SetPower;
-        Fishing.Instance.StartFishing += DisableUI;
-    }
-    private void OnDisable()
-    {
-        Fishing.Instance.PowerWindup -= SetPower;
-        Fishing.Instance.StartFishing -= DisableUI;
-    }
-    private void SetPower(float power)
-    {
-        if (!isActive)
-        {
-            isActive = !isActive;
-            SetPowerActive(isActive);
+    private bool _activateUI;
+    public bool ActivateUI 
+    { 
+        get { return _activateUI; }
+        set { 
+            if (_activateUI != value)
+            {
+                _activateUI = value;
+                _active.SetActive(value);
+            }
         }
-        _powerSlider.value = power;
     }
-    private void SetPowerActive(bool isActive)
+    public float Power
     {
-        _active.SetActive(isActive);
-    }
-    private void DisableUI(bool start)
-    {
-        if (start)
+        set
         {
-            isActive = !start;
-            _powerSlider.value = 0;
-            SetPowerActive(isActive);
+            _powerSlider.value = value;
         }
-
     }
 }

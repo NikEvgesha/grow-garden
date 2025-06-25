@@ -11,18 +11,18 @@ public class Fishing : MonoBehaviour
     public Action<bool> StartFishing;
     public Action<float> PowerWindup;
 
-    private bool _isHolding = false;
-    private bool _isStartFishing = false;
-    private bool _isFindeFishing = false;
-
     [Header("Windup and Throw Rod")]
     [SerializeField] private FishingRodThrower _fishingRodThrower;
+    [SerializeField] private PowerFishUI _powerFishUI;
 
     [Header("Waiting Fish")]
     [SerializeField] private FishBiteController _fishBiteDelay;
 
     [Header("FishMiniGame")]
     [SerializeField] private FishCatchController _fishCatchController;
+
+    private FishingState _fishingState;
+    private Coroutine _waitFishCoroutine;
     private void Awake()
     {
         if (Instance == null)
@@ -34,10 +34,31 @@ public class Fishing : MonoBehaviour
         }
         _fishBiteDelay = GetComponent<FishBiteController>();
         _fishCatchController = GetComponent<FishCatchController>();
+        _powerFishUI = GetComponentInChildren<PowerFishUI>();
     }
     private void Start()
     {
         RoadActivate(_TestActivate);
+    }
+    public void SetNewState(FishingState newState)
+    {
+        _fishingState = newState;
+        switch (_fishingState)
+        {
+            case FishingState.NoFishing:
+                _fishingRodThrower.FinishGame();
+                break;
+            case FishingState.Throw:
+                _powerFishUI.ActivateUI = true;
+                break;
+            case FishingState.WaitFish:
+                _powerFishUI.ActivateUI = false;
+                _waitFishCoroutine = StartCoroutine(_fishBiteDelay.StartWaiting());
+                break;
+            case FishingState.MiniGame:
+                break;
+            default: break;
+        }
     }
     private void RoadActivate(bool isActivate)
     {
@@ -54,58 +75,44 @@ public class Fishing : MonoBehaviour
     }
     private void UseRoad()
     {
-        if (!_isFindeFishing)
+        switch (_fishingState)
         {
-            WindupRod();
+            case FishingState.NoFishing:
+                _fishingRodThrower.PreWindupRod();
+                break;
+            case FishingState.Throw:
+                _fishingRodThrower.WindupRod(_powerFishUI);
+                break;
+            case FishingState.WaitFish:
+                SetNewState(FishingState.NoFishing);
+                StopCoroutine(_waitFishCoroutine);
+                break;
+            case FishingState.MiniGame:
+                _fishCatchController.HandleRegionInput(1f);
+                break;
+            default: break;
         }
-        else
-        {
-            _fishCatchController.HandleRegionInput(1f);
-        }
-
     }
     private void StopUseRoad()
     {
-        if (!_isFindeFishing)
+        switch (_fishingState)
         {
-            ThrowRod();
-        } 
-        else
-        {
-            _fishCatchController.HandleRegionInput(-1f);
+            case FishingState.NoFishing:
+                break;
+            case FishingState.Throw:
+                _fishingRodThrower.ThrowRod();
+                break;
+            case FishingState.WaitFish:
+                break;
+            case FishingState.MiniGame:
+                _fishCatchController.HandleRegionInput(-1f);
+                break;
+            default: break;
         }
-    }
-
-    private void WindupRod()
-    {
-        if (_isStartFishing)
-            return;
-        if (!_isHolding)
-            _isHolding = !_isHolding;
-        _fishingRodThrower.WindupRod();
-    }
-
-    private void ThrowRod()
-    {
-        if (!_isHolding)
-            return;
-        _isHolding = false;
-        _isStartFishing = true;
-        StartFishing?.Invoke(_isStartFishing);
-        _fishingRodThrower.ThrowRod();
-    }
-    public void StartBiteDelay()
-    {
-        StartCoroutine(_fishBiteDelay.StartWaiting());
     }
     public void FindFish(Fish fish)
     {
-        _isFindeFishing = true;
+        SetNewState(FishingState.MiniGame);
         _fishCatchController.Begin(fish);
-    }
-    public void FinishFishing()
-    {
-        _isFindeFishing = false;
-        _isStartFishing = false;
     }
 }

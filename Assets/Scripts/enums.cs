@@ -149,3 +149,11 @@ public enum ItemType
     Fish,
     Tool
 }
+
+public enum FishingState
+{
+    NoFishing,
+    Throw,
+    WaitFish,
+    MiniGame,
+}

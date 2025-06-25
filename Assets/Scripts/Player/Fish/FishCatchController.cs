@@ -131,6 +131,6 @@ public class FishCatchController : MonoBehaviour
     void OnEnd()
     {
         _fishGameUI.EndGame();
-        Fishing.Instance.FinishFishing();
+        Fishing.Instance.SetNewState(FishingState.NoFishing);
     }
 }
