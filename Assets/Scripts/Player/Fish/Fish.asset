@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Fish
   m_EditorClassIdentifier: 
   _fish: {fileID: 4888317133123157997, guid: 53830d625a3567d4f920a5385b158c4e, type: 3}
-  _strong: 0
+  _strong: 1
+  _difficulty: 0
   _chance: 100
   _weightMin: 1
   _weightMax: 10

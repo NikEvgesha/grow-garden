@@ -1,72 +1,100 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class FishCatchController : MonoBehaviour
 {
 
     [Header("Icon Settings")]
     [SerializeField] private float _containerSize;
-    [SerializeField] private float _fishSpeed = 200f;            // Speed at which icon moves to target
+    [SerializeField] private float _fishSpeed = 1f;                // „ем выше Ч тем быстрее Ђдоезжаетї
+    [SerializeField] private AnimationCurve _moveCurve = AnimationCurve.Linear(0, 0, 1, 1);
 
     [Header("Region Settings")]
-    [SerializeField] private float _playerSize;
+    [SerializeField] private float _playerSizeMin = 0.1f;
+    [SerializeField] private float _playerSizeMax = 0.4f;
     [SerializeField] private float _regionSpeed = 5f;            // Speed of region movement
 
     [Header("Progress Settings")]
     [SerializeField] private float _fillRate = 0.2f;             // Rate of progress change per second
     [SerializeField] private float _initialFill = 0.1f;          // 10% initial fill
 
+    private float _playerSize;
     private float _targetX;
+    private float _currentFillRate;     // реальна€ скорость заполнени€ в этой игре
+    private float _fishResistance = 1f; // сила рыбы: >1 Ч замедл€ет заливку, <1 Ч ускор€ет
+
+    private float _lerpT;        // накопленный параметр [0Е1]
+    private Vector2 _startPos;   // точка старта при каждом новом движении
 
     private FishGameUI _fishGameUI;
-    bool playing = false;
+    bool _playing = false;
     private void Start()
     {
         _fishGameUI = FishGameUI.Instance;
     }
     public void Begin(Fish fish)
     {
+        _fishResistance = fish.GetStrong();
+        _currentFillRate = Mathf.Max(_fillRate / _fishResistance, 0.01f);
+        float percent = Mathf.Lerp(_playerSizeMax, _playerSizeMin, fish.GetDifficulty());
+        _fishGameUI.SetPlayerAnchoredSize(percent);
         _fishGameUI.Progress = _initialFill;
         _containerSize = _fishGameUI.GetContainerSize();
         _playerSize = _fishGameUI.SizePlayer;
         PickNewTarget();
-        playing = true;
         _fishGameUI.StartGame();
+        StartCoroutine(StartGame());
+
+    }
+    public IEnumerator StartGame()
+    {
+        yield return new WaitForSeconds(2);
+        _playing = true;
     }
     void Update()
     {
-        if (!playing) { return; }
+        if (!_playing) { return; }
         MoveIcon();
-        HandleRegionInput();
+        //HandleRegionInput();
         UpdateProgress();
         CheckEndConditions();
     }
 
     void PickNewTarget()
     {
+        _startPos = _fishGameUI.FishPosition;
         // Random x within path bounds
         float halfWidth = _containerSize * 0.5f;
         _targetX = Random.Range(-halfWidth, halfWidth);
+
+        _lerpT = 0f;
     }
 
     void MoveIcon()
     {
         
-        Vector2 pos = _fishGameUI.FishPosition;
-        Vector2 targetPos = new Vector2(_targetX, pos.y);
-        _fishGameUI.FishPosition = Vector2.MoveTowards(pos, targetPos, _fishSpeed * Time.deltaTime);
+        // наращиваем t
+        _lerpT += Time.deltaTime * (_fishSpeed/10);
+        float tClamped = Mathf.Clamp01(_lerpT);
 
-        // If reached target, pick a new one
-        if (Mathf.Approximately(_fishGameUI.FishPosition.x, _targetX))
-        {
+        // примен€ем кривую (по умолчанию линейна€)
+        float curvedT = _moveCurve.Evaluate(tClamped);
+
+        // считаем новую позицию
+        Vector2 targetPos = new Vector2(_targetX, _startPos.y);
+        _fishGameUI.FishPosition = Vector2.Lerp(_startPos, targetPos, curvedT);
+
+        // если дошли до конца (t == 1), берем новый
+        if (tClamped >= 1f)
             PickNewTarget();
-        }
     }
 
     public void HandleRegionInput(float direction = -1)
     {
+        if (!_playing) { return; }
         // Right mouse button held moves region right, otherwise moves left
-        direction = Input.GetMouseButton(0) ? 1f : -1f;
+        //direction = Input.GetMouseButton(0) ? 1f : -1f;
         Vector2 rPos = _fishGameUI.PlayerPosition;
         rPos.x += direction * _regionSpeed;
 
@@ -86,7 +114,7 @@ public class FishCatchController : MonoBehaviour
 
         if (iconX >= regionLeft && iconX <= regionRight)
         {
-            _fishGameUI.Progress += _fillRate * Time.deltaTime;
+            _fishGameUI.Progress += _currentFillRate * Time.deltaTime;
         }
         else
         {
@@ -103,13 +131,13 @@ public class FishCatchController : MonoBehaviour
         {
             Debug.Log("You lost!");
             OnLose();
-            playing = false;
+            _playing = false;
         }
         else if (_fishGameUI.Progress >= 1f)
         {
             Debug.Log("You won!");
             OnCatch();
-            playing = false;
+            _playing = false;
         }
     }
 

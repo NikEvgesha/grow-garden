@@ -79,5 +79,16 @@ public class FishGameUI : MonoBehaviour
     {
         _active.SetActive(false);
     }
+    public void SetPlayerAnchoredSize(float percent)
+    {
+        // Задаём горизонтальные якоря так, чтобы элемент занимал 'percent' ширины контейнера
+        float half = percent / 2f;
 
+        // Предположим, вы хотите, чтобы центр игрока совпадал с центром контейнера:
+        _catchRegion.anchorMin = new Vector2(0.5f - half, _catchRegion.anchorMin.y);
+        _catchRegion.anchorMax = new Vector2(0.5f + half, _catchRegion.anchorMax.y);
+
+        // Обнуляем sizeDelta, чтобы ширина считалась строго по анкерам
+        _catchRegion.sizeDelta = new Vector2(0, _catchRegion.sizeDelta.y);
+    }
 }
