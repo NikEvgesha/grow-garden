@@ -24,6 +24,7 @@ public class Plant : MonoBehaviour
     [SerializeField] protected Transform _growStageObjectsParent;
     [SerializeField] protected List<GrowStage> _growStages;
 
+    protected float _weight;
     protected float _weightMultiplier = 1f;
     protected PlantData _plantData;
     protected int _curentStageIdx = 0;
@@ -32,10 +33,12 @@ public class Plant : MonoBehaviour
 
 
     public bool Grown => _isFullyGrown;
+    public PlantData Data => _plantData;
 
     public void Init(PlantData plantData)
     {
         _plantData = plantData;
+        _weight = _plantData.BaseWeight * _weightMultiplier;
         _isFullyGrown = false;
         stageDuration = _plantData.GrowTime / _growStages.Count;
         StartCoroutine(Grow());
@@ -51,7 +54,7 @@ public class Plant : MonoBehaviour
 
     protected virtual IEnumerator Grow()
     {
-        transform.localScale = Vector3.zero;
+        _growStageObjectsParent.transform.localScale = Vector3.zero;
         while (_curentStageIdx < _growStages.Count)
         {
             _growStages[_curentStageIdx].obj.SetActive(true);
@@ -60,7 +63,7 @@ public class Plant : MonoBehaviour
             while (currentStageTime < stageDuration)
             {
                 currentStageTime += Time.deltaTime;
-                transform.localScale = Vector3.one * Mathf.Lerp(0, _weightMultiplier, ((stageDuration * _curentStageIdx) + currentStageTime) / _plantData.GrowTime);
+                _growStageObjectsParent.transform.localScale = Vector3.one * Mathf.Lerp(0, _weightMultiplier, ((stageDuration * _curentStageIdx) + currentStageTime) / _plantData.GrowTime);
                 yield return null;
             }
             if (_growStages[_curentStageIdx].isFinal) break;
@@ -73,7 +76,6 @@ public class Plant : MonoBehaviour
 
     protected virtual void OnGrowFinish()
     {
-        Debug.Log(_plantData.Name + " fully grown");
         _isFullyGrown = true;
     }
 }

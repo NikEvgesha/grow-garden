@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d05e8c9adef3594449258b38c5ab309d, type: 3}
   m_Name: Tomato
   m_EditorClassIdentifier: 
+  _icon: {fileID: 21300000, guid: e530b1fb53e824def91db36abce55dfb, type: 3}
   _name: tomato
+  _maxStackSize: 0
   _harvestable: 1
   _baseCost: 15
   _baseWeight: 0.5
   _plantPrefab: {fileID: 4882482980127360842, guid: 4715d003f41fc734a86b74c390ac2b6f, type: 3}
   _seedPrefab: {fileID: 5818566490930653712, guid: 4715d003f41fc734a86b74c390ac2b6f, type: 3}
   _growTimeSeconds: 8
-  _plantIcon: {fileID: 21300000, guid: 28a34d8a3d8794d7fb7adb5e9f2e8f2e, type: 3}
   _seedIcon: {fileID: 21300000, guid: ff95f66e252ce4588a7ebe6e1803774e, type: 3}

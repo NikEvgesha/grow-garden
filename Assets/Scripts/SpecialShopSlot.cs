@@ -11,7 +11,7 @@ public abstract class SpecialShopSlot : MonoBehaviour
     public void Init(ItemData itemData, string price, CurrencyType type)
     {
         _name.text = _name.text = LocalizationManager.Instance.LocalizationData.GetTranslation(itemData.Name, LocalizationManager.Instance.CurrentLanguage, LocalizationKeyType.Item.ToString());
-        _icon.sprite = itemData.IMG;
+        _icon.sprite = itemData.Icon;
 
         _price.text = price;
         _currencyIcon.sprite = CurrencyManager.Instance.GetCurrencyIcon(type);

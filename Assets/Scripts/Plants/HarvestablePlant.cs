@@ -5,8 +5,10 @@ public class HarvestablePlant : Plant, IPointerClickHandler
 {
     //[SerializeField] private InteractionArea _interactionArea;
     [SerializeField] protected float _maxHarvestDistance;
+    [SerializeField] protected GameObject _harvestCanvas;
+    [SerializeField] protected GameObject _growCanvas;
     protected Transform _spawnPoint;
-    public float Weight => _plantData.BaseWeight * _weightMultiplier;
+    public virtual float Weight => Mathf.Round(_weight * 100f) / 100f;
     public Action<Transform> OnHarvest;
 
 
@@ -31,9 +33,11 @@ public class HarvestablePlant : Plant, IPointerClickHandler
 
     }
 
-    protected virtual void TryHarvest()
+    public virtual void TryHarvest()
     {
         // TODO: collect yo Inventory
+        if (!Inventory.Instance.Add(this)) return;
+
         if (_spawnPoint != null)
             OnHarvest.Invoke(_spawnPoint);
 
@@ -44,5 +48,13 @@ public class HarvestablePlant : Plant, IPointerClickHandler
     {
         _spawnPoint = point;
     }
+
+
+    public void ShowHarvestHint(bool visible)
+    {
+        _harvestCanvas.SetActive(visible);
+    }
+
+
 
 }

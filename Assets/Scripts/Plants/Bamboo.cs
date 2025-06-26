@@ -13,6 +13,8 @@ public class Bamboo : HarvestablePlant
     private GameObject _currentSegment;
     private float _totalWeight;
 
+    public override float Weight => Mathf.Round(_weight * _segmentsCount * 100f) / 100f;
+
     protected override void OnGrowFinish()
     {
         base.OnGrowFinish();
@@ -22,7 +24,7 @@ public class Bamboo : HarvestablePlant
     protected IEnumerator SegmentsGrow()
     {
         _nextSegmentPoint = _startPoint;
-        transform.localScale = Vector3.one * _weightMultiplier;
+        _growStageObjectsParent.transform.localScale = Vector3.one * _weightMultiplier;
         while (_segmentsCount < _maxSegments)
         {
             _currentSegment = Instantiate(_plantSegment, _growStageObjectsParent);
@@ -40,10 +42,10 @@ public class Bamboo : HarvestablePlant
     }
 
 
-    protected override void TryHarvest()
+/*    public override void TryHarvest()
     {
         _totalWeight = _weightMultiplier * _plantData.BaseWeight * _segmentsCount;
         // TODO: collect yo Inventorya
         Destroy(gameObject);
-    }
+    }*/
 }
