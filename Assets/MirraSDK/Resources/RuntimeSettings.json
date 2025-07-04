@@ -1,6 +1,6 @@
 {
-    "platformName": "Unknown",
-    "deploymentName": "Unknown",
+    "platformName": "UniversalWeb",
+    "deploymentName": "Web",
     "dataContainerTags": [
         "json-data"
     ]

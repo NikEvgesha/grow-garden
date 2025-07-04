@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Melomaner.unity
+    guid: 85b1f0acd8732364194410789dfc7ccf
   m_configObjects: {}
