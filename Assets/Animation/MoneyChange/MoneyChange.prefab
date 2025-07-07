@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 539831746804603597}
   - component: {fileID: 6670563112059328662}
   - component: {fileID: 3196394021240781192}
-  - component: {fileID: 4097080499848334719}
   - component: {fileID: 8759079835388502660}
+  - component: {fileID: 3959658622605046687}
   m_Layer: 0
   m_Name: MoneyChange
   m_TagString: Untagged
@@ -81,18 +81,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
---- !u!114 &4097080499848334719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6460139055997754742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abc4f4247d1da394996ae601615d2fb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &8759079835388502660
 Animator:
   serializedVersion: 5
@@ -114,3 +102,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3959658622605046687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6460139055997754742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12ed5c8ac7eeb6745b94d2cc1ba89288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,6 +1,7 @@
 public enum UIHintType
 {
-    TooFar
+    TooFar,
+    NoSpaceInInventory
 }
 
 public enum AchievementType

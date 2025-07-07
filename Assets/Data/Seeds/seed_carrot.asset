@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d41139ded55077a4896bb81616b260e2, type: 3}
+  m_Name: seed_carrot
+  m_EditorClassIdentifier: 
+  _type: 0
+  _icon: {fileID: 21300000, guid: 3dbc0b69e7e5a754ea3c662395055be5, type: 3}
+  _name: Seed_Carrot
+  _maxStackSize: 20
+  _prefab: {fileID: 2964494499675396616, guid: cab0cf0e8c1ea6e49aecf1ab4c51d098, type: 3}
+  _coinPrice: 20
+  _gemPrice: 5
+  _plantData: {fileID: 11400000, guid: 4fa065bed37c4a44ca374b9281e0a442, type: 2}
+  _marketStack: 5

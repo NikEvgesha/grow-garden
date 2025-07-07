@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 836672933499157023}
   - component: {fileID: 1803201141735642470}
   - component: {fileID: 7311533908773766281}
-  - component: {fileID: 6501059376310943061}
+  - component: {fileID: 7103951532605944223}
   m_Layer: 0
   m_Name: MoneyAmount
   m_TagString: Untagged
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f715dbe5274244b628c3f52eafdd8eaa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 58533d572cdc1bd419bdaa353713606a, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6501059376310943061
+--- !u!114 &7103951532605944223
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,12 +88,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 212697168360484119}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7c01df53cd6dd6499ae1ac714303d80, type: 3}
+  m_Script: {fileID: 11500000, guid: a58719b9e261a5c49b99a5206428c644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _currencyAmount: {fileID: 8559415304929734051}
   _type: 0
-  _diffObj: {fileID: 4097080499848334719, guid: f1f92a0fbb664e548b8dd093ac7a6935, type: 3}
+  _diffObj: {fileID: 3959658622605046687, guid: f1f92a0fbb664e548b8dd093ac7a6935, type: 3}
+  _currecyIcon: {fileID: 8332449861878243256}
 --- !u!1 &649158117753822653
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,7 +107,6 @@ GameObject:
   - component: {fileID: 5710906589019152039}
   - component: {fileID: 6096834093498803211}
   - component: {fileID: 4463950556223735347}
-  - component: {fileID: 1791041126707843356}
   m_Layer: 0
   m_Name: Currency
   m_TagString: Untagged
@@ -199,20 +199,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1791041126707843356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 649158117753822653}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2dac9ef993b2f74ba8bb0161dc88382, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gems: {fileID: 3122367159597521950}
-  _coins: {fileID: 7354787531043959872}
 --- !u!1 &710408911177764830
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,9 +234,9 @@ RectTransform:
   m_Father: {fileID: 6665228720009457533}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -12.093941}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7924675092535740335
 MonoBehaviour:
@@ -339,9 +325,9 @@ RectTransform:
   m_Father: {fileID: 6624625287622021043}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -12.093941}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7745707437544602072
 CanvasRenderer:
@@ -635,7 +621,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6665228720009457533
 RectTransform:
   m_ObjectHideFlags: 0
@@ -651,10 +637,10 @@ RectTransform:
   - {fileID: 5949247354344009706}
   m_Father: {fileID: 5059195997207481811}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 147.09412, y: -158.62636}
-  m_SizeDelta: {x: 294.18823, y: 93.56145}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 93.56145}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3506141919238967662
 GameObject:
@@ -742,7 +728,7 @@ GameObject:
   - component: {fileID: 5239716583150208156}
   - component: {fileID: 7988396172663484504}
   - component: {fileID: 3036245140382932305}
-  - component: {fileID: 2408337053599293948}
+  - component: {fileID: 8311344484120549152}
   m_Layer: 0
   m_Name: GemsAmount
   m_TagString: Untagged
@@ -810,7 +796,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2408337053599293948
+--- !u!114 &8311344484120549152
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -819,12 +805,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4023685552043711220}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7c01df53cd6dd6499ae1ac714303d80, type: 3}
+  m_Script: {fileID: 11500000, guid: a58719b9e261a5c49b99a5206428c644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _currencyAmount: {fileID: 7184329165930131109}
   _type: 1
-  _diffObj: {fileID: 4097080499848334719, guid: f1f92a0fbb664e548b8dd093ac7a6935, type: 3}
+  _diffObj: {fileID: 3959658622605046687, guid: f1f92a0fbb664e548b8dd093ac7a6935, type: 3}
+  _currecyIcon: {fileID: 2331868390424876768}
 --- !u!1 &4124999633016914828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,7 +1017,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6624625287622021043
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1046,8 +1033,8 @@ RectTransform:
   - {fileID: 7564682868303230209}
   m_Father: {fileID: 5059195997207481811}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 147.09412, y: -104.91757}
-  m_SizeDelta: {x: 294.18823, y: 93.56145}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 93.56145}
   m_Pivot: {x: 0.5, y: 0.5}

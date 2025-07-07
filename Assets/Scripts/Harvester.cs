@@ -27,19 +27,18 @@ public class Harvester : MonoBehaviour
             Harvest();
         }
     }
-    private void OnTriggerEnter(Collider other)
+/*    private void OnTriggerEnter(Collider other)
     {
 
         if (other.transform.TryGetComponent<HarvestablePlant>(out HarvestablePlant harvestable) && harvestable.Grown) {
             _plantsInTrigger.AddLast(harvestable);
-
             if (!_haveActiveCanvas)
             {
                 harvestable.ShowHarvestHint(true);
                 _haveActiveCanvas = true;
             }
         }
-    }
+    }*/
 
 
     private void CheckNearPlants()
@@ -75,7 +74,7 @@ public class Harvester : MonoBehaviour
         }
     }
 
-
+/*
     private void OnTriggerExit(Collider other)
     {
         if (_plantsInTrigger.Count == 0) return;
@@ -85,7 +84,7 @@ public class Harvester : MonoBehaviour
             _plantsInTrigger.Remove(harvestable);
             harvestable.ShowHarvestHint(false);
         }
-    }
+    }*/
 
 
     private void Harvest()

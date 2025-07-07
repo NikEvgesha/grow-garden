@@ -24,11 +24,17 @@ public class InventoryUI : MonoBehaviour
         Inventory.Instance.InventoryUpdate -= UpdateUI;
     }
 
-    private void UpdateUI(List<InventoryItem> items)
+    private void UpdateUI(List<Item> items)
     {
+
         if (_slots.Count > items.Count)
         {
-            _slots.RemoveRange(items.Count - 1, _slots.Count - items.Count);
+            int slotToRemove = _slots.Count - items.Count;
+            for (int i = 0; i < slotToRemove; i++)
+            {
+                Destroy(_slots[_slots.Count - i - 1].gameObject);
+            }
+            _slots.RemoveRange(items.Count, _slots.Count - items.Count);
         } else if (_slots.Count < items.Count)
         {
             int slotToCreate = items.Count - _slots.Count;

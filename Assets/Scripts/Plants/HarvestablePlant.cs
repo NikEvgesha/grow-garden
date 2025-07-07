@@ -8,10 +8,15 @@ public class HarvestablePlant : Plant, IPointerClickHandler
     [SerializeField] protected GameObject _harvestCanvas;
     [SerializeField] protected GameObject _growCanvas;
     protected Transform _spawnPoint;
+    protected HarvestPlantItem _item;
     public virtual float Weight => Mathf.Round(_weight * 100f) / 100f;
     public Action<Transform> OnHarvest;
 
 
+    private void Awake()
+    {
+        _item = GetComponent<HarvestPlantItem>();
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -36,7 +41,7 @@ public class HarvestablePlant : Plant, IPointerClickHandler
     public virtual void TryHarvest()
     {
         // TODO: collect yo Inventory
-        if (!Inventory.Instance.Add(this)) return;
+        if (!_item.TryHarvest()) return;
 
         if (_spawnPoint != null)
             OnHarvest.Invoke(_spawnPoint);

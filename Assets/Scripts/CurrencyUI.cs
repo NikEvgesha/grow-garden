@@ -6,6 +6,7 @@ public class CurrencyUI : MonoBehaviour
     [SerializeField] private Text _currencyAmount;
     [SerializeField] private CurrencyType _type;
     [SerializeField] private UIMoneyChangeAnimation _diffObj;
+    [SerializeField] private Image _currecyIcon;
 
     private int _currentAmount = 0;
 
@@ -13,6 +14,7 @@ public class CurrencyUI : MonoBehaviour
     {
         CurrencyManager.Instance.CurrencyChanged += OnCurrencyChanged;
         OnCurrencyChanged(_type, CurrencyManager.Instance.GetBalance(_type));
+        _currecyIcon.sprite = CurrencyManager.Instance.GetCurrencyIcon(_type);
     }
 
     private void OnEnable()

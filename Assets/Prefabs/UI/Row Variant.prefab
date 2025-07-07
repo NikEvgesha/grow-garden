@@ -17,16 +17,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 337977791626673073, guid: ee18dc0e9188ffe418c5118a9cf5db9d, type: 3}
+      propertyPath: m_Padding.m_Left
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 337977791626673073, guid: ee18dc0e9188ffe418c5118a9cf5db9d, type: 3}
       propertyPath: m_ChildScaleWidth
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 337977791626673073, guid: ee18dc0e9188ffe418c5118a9cf5db9d, type: 3}
+      propertyPath: m_Padding.m_Right
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 337977791626673073, guid: ee18dc0e9188ffe418c5118a9cf5db9d, type: 3}
       propertyPath: m_ChildControlWidth
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 337977791626673073, guid: ee18dc0e9188ffe418c5118a9cf5db9d, type: 3}
       propertyPath: m_ChildForceExpandWidth
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 337977791626673073, guid: ee18dc0e9188ffe418c5118a9cf5db9d, type: 3}
       propertyPath: m_ChildForceExpandHeight

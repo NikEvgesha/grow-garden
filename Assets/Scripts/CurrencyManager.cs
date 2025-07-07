@@ -54,6 +54,7 @@ public class CurrencyManager : MonoBehaviour
     private void Start()
     {
         
+        AddCurrency(CurrencyType.Coins, StartCoinsAmount);
         AddCurrency(CurrencyType.Coins, SaveManager.Instance.LoadCoins());
         AddCurrency(CurrencyType.Gems, SaveManager.Instance.LoadGems());
     }

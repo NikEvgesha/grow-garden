@@ -884,6 +884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41af02007b9f9674c82f6c8016e79f56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _capacity: 20
   _handPoint: {fileID: 2527896004847667565}
 --- !u!1 &5546037382058302620
 GameObject:
@@ -1614,6 +1615,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f715632fb768b84bb8e89b011c5ef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  detectionRadius: 2
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!136 &3030566888901695174
 CapsuleCollider:
   m_ObjectHideFlags: 0

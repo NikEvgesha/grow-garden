@@ -1,15 +1,67 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 
 [Serializable]
-public class InventoryItem
+public struct InventoryItem
 {
     public ItemData item;
     public int amount;
     public float weight; // for Plants
-                         //public GameObject prefab;
+    public bool active;
 }
+
+
+
+public abstract class Item : MonoBehaviour
+{
+    protected ItemData item;
+    protected float weight;
+    protected ItemType type;
+
+    public ItemType Type => type;
+    public float Weight => weight;
+    public ItemData Data => item;
+
+}
+
+public class HarvestPlantItem : Item
+{
+    private HarvestablePlant plant;
+
+
+    private void Awake()
+    {
+        plant = GetComponent<HarvestablePlant>();
+        type = ItemType.Plant;
+    }
+
+
+    public bool TryHarvest()
+    {
+        item = plant.Data;
+        weight = plant.Weight;
+
+        return Inventory.Instance.Add(this);
+    }
+}
+
+public class SeedItem : Item
+{
+    private Seed seed;
+
+
+    private void Awake()
+    {
+        seed = GetComponent<Seed>();
+        type = ItemType.Seed;
+        weight = 0;
+    }
+
+}
+
+
 
 
 public class Inventory : MonoBehaviour
@@ -24,11 +76,11 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Transform _handPoint;
 
 
-    private List<InventoryItem> _items;
+    private List<Item> _items;
 
     public int Capacity => _capacity;
 
-    public Action<List<InventoryItem>> InventoryUpdate;
+    public Action<List<Item>> InventoryUpdate;
 
     private void Awake()
     {
@@ -40,13 +92,12 @@ public class Inventory : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        _items = new List<InventoryItem>();
+        _items = new List<Item>();
     }
 
-
-    public bool Add(HarvestablePlant harvestable)
+/*    public bool Add(HarvestablePlant harvestable)
     {
-        if (_capacity > _items.Count)
+        if (CheckEmptySlot())
         {
             InventoryItem item = new InventoryItem
             {
@@ -59,7 +110,36 @@ public class Inventory : MonoBehaviour
             return true;
         }
         return false;
+    }*/
+
+
+    public bool Add(Item item)
+    {
+        if (CheckEmptySlot())
+        {
+            _items.Add(item);
+            InventoryUpdate?.Invoke(_items);
+            return true;
+        }
+        return false;
     }
+
+/*public bool Add(SeedData seed) // add(Seed seed) - сразу инстанцировать и добавлять?
+    {
+        if (CheckEmptySlot())
+        {
+            InventoryItem item = new InventoryItem
+            {
+                item = seed,
+                amount = 1,
+                weight = 0
+            };
+            _items.Add(item);
+            InventoryUpdate?.Invoke(_items);
+            return true;
+        }
+        return false;
+    }*/
 
 /*    public bool Add(Fish fish)
     {
@@ -77,5 +157,24 @@ public class Inventory : MonoBehaviour
         }
         return false;
     }*/
+
+    public bool CheckEmptySlot()
+    {
+        bool res = _capacity > _items.Count;
+        if (!res)
+            GameUI.Instance.Hints.ShowHint(UIHintType.NoSpaceInInventory);
+        return res;
+    }
+
+    public ReadOnlyCollection<Item> GetItemsByType(ItemType type)
+    {
+        return _items.FindAll(x => x.Type == type).AsReadOnly();
+    }
+
+    public void RemoveByType(ItemType type)
+    {
+        _items.RemoveAll(x => x.Type == type);
+        InventoryUpdate?.Invoke(_items);
+    }
 
 }
