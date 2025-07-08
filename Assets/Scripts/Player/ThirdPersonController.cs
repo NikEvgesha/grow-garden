@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class ThirdPersonController : MonoBehaviour
 {
+    public static ThirdPersonController Instance { get; private set; }
+
     [Header("Movement")]
     public float moveSpeed = 5f;
     public float turnSmoothTime = 0.1f;
@@ -20,6 +22,18 @@ public class ThirdPersonController : MonoBehaviour
     private Animator animator;
     private float turnSmoothVelocity;
     private float verticalVelocity;
+    private string _animationStateName = "Animation_int";
+
+    private void Awake()
+    {
+        if (Instance == null) 
+        {
+            Instance = this;
+        } else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -83,4 +97,9 @@ public class ThirdPersonController : MonoBehaviour
         verticalVelocity = Mathf.Max(verticalVelocity, terminalVelocity);
         controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
     }
+    public void AnimationState(int state)
+    {
+        animator.SetInteger(_animationStateName, state);
+    }
+
 }

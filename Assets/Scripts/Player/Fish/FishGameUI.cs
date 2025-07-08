@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +10,8 @@ public class FishGameUI : MonoBehaviour
     [Header("Icon Settings")]
     [SerializeField] private RectTransform _fishUI;               // The moving icon
     [SerializeField] private RectTransform _pathContainer;       // Container representing the path (e.g., an empty RectTransform with a horizontal line)
+    [SerializeField] private Image _fishIconEnable;                
+    [SerializeField] private Image _fishIconDisable;                
 
     [Header("Region Settings")]
     [SerializeField] private RectTransform _catchRegion;         // The player's catch area
@@ -17,6 +19,11 @@ public class FishGameUI : MonoBehaviour
 
     [Header("Progress Settings")]
     [SerializeField] private Image _progressBar;                 // UI Image representing fill amount
+
+    [Header("Show No Water")]
+    [SerializeField] private GameObject _noWater;
+
+    private bool _activateRoad;
 
     private float _progress;
     public float Progress
@@ -90,5 +97,18 @@ public class FishGameUI : MonoBehaviour
 
         // ќбнул€ем sizeDelta, чтобы ширина считалась строго по анкерам
         _catchRegion.sizeDelta = new Vector2(0, _catchRegion.sizeDelta.y);
+    }
+    public void _ToggleActivateRoad()
+    {
+        _activateRoad = !_activateRoad;
+        _fishIconEnable.gameObject.SetActive(_activateRoad);
+        _fishIconDisable.gameObject.SetActive(!_activateRoad);
+        Fishing.Instance.RoadActivate(_activateRoad);
+    }
+    public IEnumerator ShowNoWater()
+    {
+        _noWater.SetActive(true);
+        yield return new WaitForSeconds(1);
+        _noWater.SetActive(false);
     }
 }
