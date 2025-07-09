@@ -94,7 +94,9 @@ public class FishingRodThrower : MonoBehaviour
     }
     public void FinishGame()
     {
-        StopCoroutine(_checkWaterCoroutine);
+        if (_checkWaterCoroutine != null)
+            StopCoroutine(_checkWaterCoroutine);
+
         if (_activeFloat)
             Destroy(_activeFloat.gameObject);
         _activeFloat = null;
