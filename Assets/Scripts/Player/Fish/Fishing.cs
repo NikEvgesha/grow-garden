@@ -102,6 +102,7 @@ public class Fishing : MonoBehaviour
                 break;
             case FishingState.MiniGame:
                 //_fishCatchController.HandleRegionInput(1f);
+                FishGameUI.Instance.SetForward(false);
                 _fishCatchController.HandleRegionPhysics(1f);
                 break;
             default: break;
@@ -121,6 +122,7 @@ public class Fishing : MonoBehaviour
             case FishingState.WaitFish:
                 break;
             case FishingState.MiniGame:
+                FishGameUI.Instance.SetForward(true);
                 //_fishCatchController.HandleRegionInput(-1f);
                 _fishCatchController.HandleRegionPhysics(-1f);
                 break;

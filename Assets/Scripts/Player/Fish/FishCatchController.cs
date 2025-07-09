@@ -58,7 +58,7 @@ public class FishCatchController : MonoBehaviour
         _fishGameUI.PlayerPosition = playerCenter;
 
         PickNewTarget();
-        _fishGameUI.StartGame();
+        _fishGameUI.StartGame(_initialFill);
         StartCoroutine(StartGame());
 
     }

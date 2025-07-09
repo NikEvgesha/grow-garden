@@ -2062,7 +2062,7 @@ MonoBehaviour:
   - {fileID: 4859162932832898032}
   _startPoint: {fileID: 4945780460569845110}
   _endPoint: {fileID: 5571652674413606567}
-  _speed: 10
+  _speed: 1
   _curve:
     serializedVersion: 2
     m_Curve:
