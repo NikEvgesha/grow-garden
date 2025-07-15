@@ -38,7 +38,7 @@ public class Fishing : MonoBehaviour
     }
     private void Start()
     {
-        RoadActivate(_TestActivate);
+        //RoadActivate(_TestActivate);
     }
     public void SetNewState(FishingState newState)
     {
@@ -47,12 +47,19 @@ public class Fishing : MonoBehaviour
         {
             case FishingState.NoFishing:
                 _fishingRodThrower.FinishGame();
+                _powerFishUI.ActivateUI = false;
+                if (_waitFishCoroutine != null)
+                    StopCoroutine(_waitFishCoroutine);
+
                 break;
             case FishingState.Throw:
                 _powerFishUI.ActivateUI = true;
                 break;
-            case FishingState.WaitFish:
+            case FishingState.FindWater:
+                _fishingRodThrower.ThrowRod();
                 _powerFishUI.ActivateUI = false;
+                break;
+            case FishingState.WaitFish:
                 _waitFishCoroutine = StartCoroutine(_fishBiteDelay.StartWaiting());
                 break;
             case FishingState.MiniGame:
@@ -60,15 +67,18 @@ public class Fishing : MonoBehaviour
             default: break;
         }
     }
-    private void RoadActivate(bool isActivate)
+    public void RoadActivate(bool isActivate)
     {
         if (isActivate)
         {
+            ThirdPersonController.Instance.AnimationState(4);
             PlayerInput.Instance.AAttack += UseRoad;
             PlayerInput.Instance.AStopAttack += StopUseRoad;
         }
         else
         {
+            ThirdPersonController.Instance.AnimationState(0);
+            _fishCatchController.FinishGame();
             PlayerInput.Instance.AAttack -= UseRoad;
             PlayerInput.Instance.AStopAttack -= StopUseRoad;
         }
@@ -83,12 +93,16 @@ public class Fishing : MonoBehaviour
             case FishingState.Throw:
                 _fishingRodThrower.WindupRod(_powerFishUI);
                 break;
+            case FishingState.FindWater:
+                _fishingRodThrower.PreStop();
+                SetNewState(FishingState.NoFishing);
+                break;
             case FishingState.WaitFish:
                 SetNewState(FishingState.NoFishing);
-                StopCoroutine(_waitFishCoroutine);
                 break;
             case FishingState.MiniGame:
                 //_fishCatchController.HandleRegionInput(1f);
+                FishGameUI.Instance.SetForward(false);
                 _fishCatchController.HandleRegionPhysics(1f);
                 break;
             default: break;
@@ -101,11 +115,14 @@ public class Fishing : MonoBehaviour
             case FishingState.NoFishing:
                 break;
             case FishingState.Throw:
-                _fishingRodThrower.ThrowRod();
+                SetNewState(FishingState.FindWater);
+                break;
+            case FishingState.FindWater:
                 break;
             case FishingState.WaitFish:
                 break;
             case FishingState.MiniGame:
+                FishGameUI.Instance.SetForward(true);
                 //_fishCatchController.HandleRegionInput(-1f);
                 _fishCatchController.HandleRegionPhysics(-1f);
                 break;

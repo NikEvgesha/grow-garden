@@ -155,6 +155,7 @@ public enum FishingState
 {
     NoFishing,
     Throw,
+    FindWater,
     WaitFish,
     MiniGame,
 }

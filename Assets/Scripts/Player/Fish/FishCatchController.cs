@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class FishCatchController : MonoBehaviour
@@ -59,7 +58,7 @@ public class FishCatchController : MonoBehaviour
         _fishGameUI.PlayerPosition = playerCenter;
 
         PickNewTarget();
-        _fishGameUI.StartGame();
+        _fishGameUI.StartGame(_initialFill);
         StartCoroutine(StartGame());
 
     }
@@ -186,13 +185,11 @@ public class FishCatchController : MonoBehaviour
         {
             Debug.Log("You lost!");
             OnLose();
-            _playing = false;
         }
         else if (_fishGameUI.Progress >= 1f)
         {
             Debug.Log("You won!");
             OnCatch();
-            _playing = false;
         }
     }
 
@@ -213,7 +210,12 @@ public class FishCatchController : MonoBehaviour
     }
     void OnEnd()
     {
+        _playing = false;
         _fishGameUI.EndGame();
         Fishing.Instance.SetNewState(FishingState.NoFishing);
+    }
+    public void FinishGame()
+    {
+        OnEnd();
     }
 }
