@@ -884,8 +884,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41af02007b9f9674c82f6c8016e79f56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _capacity: 20
+  _capacityUsable: 10
+  _capacityMain: 50
   _handPoint: {fileID: 2527896004847667565}
+  _itemsParent: {fileID: 4988895908083940362}
 --- !u!1 &5546037382058302620
 GameObject:
   m_ObjectHideFlags: 0

@@ -46,7 +46,8 @@ public class HarvestablePlant : Plant, IPointerClickHandler
         if (_spawnPoint != null)
             OnHarvest.Invoke(_spawnPoint);
 
-        Destroy(gameObject);
+        StopAllCoroutines();
+
     }
 
     public void SetSpawnPoint(Transform point)

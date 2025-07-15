@@ -6,52 +6,99 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private InventorySlot _slotPrefab;
     [SerializeField] private Transform _slotsParent;
     [SerializeField] private DynamicGridSpawner _grid;
+    [SerializeField] private GameObject _mainUI;
 
 
-    private List<InventorySlot> _slots;
+
+    private List<InventorySlot> _slotsUsable;
+    private List<InventorySlot> _slotsMain;
 
     private void Awake()
     {
-        _slots = new List<InventorySlot>();
+        _slotsUsable = new List<InventorySlot>();
+        _slotsMain = new List<InventorySlot>();
     }
     private void Start()
     {
-        Inventory.Instance.InventoryUpdate += UpdateUI;
+        Inventory.Instance.InventoryUsableUpdate += UpdateUI;
+        Inventory.Instance.InventoryMainUpdate += UpdateMainUI;
+
+
+        for (int i = 0; i < Inventory.Instance.CapacityUsable; i++)
+        {
+            InventorySlot slot = Instantiate(_slotPrefab, _slotsParent);
+            slot.Init(null);
+            _slotsUsable.Add(slot);
+        }
+
+        for (int i = 0; i < Inventory.Instance.CapacityMain; i++)
+        {
+            InventorySlot slot = _grid.SpawnObject<InventorySlot>(_slotPrefab.gameObject);
+            slot.Init(null);
+            _slotsMain.Add(slot);
+        }
     }
 
     private void OnDisable()
     {
-        Inventory.Instance.InventoryUpdate -= UpdateUI;
+        Inventory.Instance.InventoryUsableUpdate -= UpdateUI;
+        Inventory.Instance.InventoryMainUpdate -= UpdateMainUI;
     }
 
     private void UpdateUI(List<Item> items)
     {
+        /*
+                if (_slots.Count > items.Count)
+                {
+                    int slotToRemove = _slots.Count - items.Count;
+                    for (int i = 0; i < slotToRemove; i++)
+                    {
+                        Destroy(_slots[_slots.Count - i - 1].gameObject);
+                    }
+                    _slots.RemoveRange(items.Count, _slots.Count - items.Count);
+                } else if (_slots.Count < items.Count)
+                {
+                    int slotToCreate = items.Count - _slots.Count;
+                    for (int i = 0; i < slotToCreate; i++)
+                    {
+                        InventorySlot slot = Instantiate(_slotPrefab, _slotsParent);
 
-        if (_slots.Count > items.Count)
+                        _slots.Add(slot);
+                    }
+                }*/
+
+        for (int i = 0; i < _slotsUsable.Count; i++)
         {
-            int slotToRemove = _slots.Count - items.Count;
-            for (int i = 0; i < slotToRemove; i++)
+            if (i >= items.Count)
             {
-                Destroy(_slots[_slots.Count - i - 1].gameObject);
+                _slotsUsable[i].Init(null);
             }
-            _slots.RemoveRange(items.Count, _slots.Count - items.Count);
-        } else if (_slots.Count < items.Count)
-        {
-            int slotToCreate = items.Count - _slots.Count;
-            for (int i = 0; i < slotToCreate; i++)
+            else
             {
-                //InventorySlot slot = Instantiate(_slotPrefab, _slotsParent);
-                InventorySlot slot = _grid.SpawnObject<InventorySlot>(_slotPrefab.gameObject);
-                _slots.Add(slot);
+                _slotsUsable[i].Init(items[i]);
             }
         }
+    }
 
-            for (int i = 0; i < items.Count; i++)
+
+    private void UpdateMainUI(List<Item> items)
+    {
+        for (int i = 0; i < _slotsMain.Count; i++)
+        {
+            if (i >= items.Count)
             {
-                if (_slots[i].Item != items[i])
+                _slotsMain[i].Init(null);
+            }
+            else
             {
-                _slots[i].Init(items[i]);
+                _slotsMain[i].Init(items[i]);
             }
         }
+    }
+
+
+    public void ToggleMainUI()
+    {
+        _mainUI.SetActive(!_mainUI.activeInHierarchy);
     }
 }

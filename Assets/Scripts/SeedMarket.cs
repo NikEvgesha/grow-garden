@@ -44,26 +44,28 @@ public class SeedMarket : InteractablePoint
     }
 
 
-    public void TryBuy(SeedData seed, bool forGems)
+    public void TryBuy(SeedData seedData, bool forGems)
     {
-        if (!Inventory.Instance.CheckEmptySlot()) return;
+        if (!Inventory.Instance.CheckEmptySlot(inMainInventory: false)) return;
 
         bool bought = CurrencyManager.Instance.RemoveCurrency(
             type: forGems ? CurrencyType.Gems : CurrencyType.Coins,
-            amount: forGems ? seed.GemPrice : seed.CoinPrice
+            amount: forGems ? seedData.GemPrice : seedData.CoinPrice
         );
 
         if (bought)
         {
-            //Inventory.Instance.Add(seed);
-            MarketItemData item = _market[seed];
+            Seed seed = Instantiate(seedData.Prefab).GetComponent<Seed>();
+            seed.Init(seedData);
+            seed.TryBuy();
+            MarketItemData item = _market[seedData];
             item.amount -= 1;
             item.slot.SetAmount(item.amount);
             if (item.amount == 0)
             {
                 item.slot.SetAvailability(false);
             }
-            _market[seed] = item;
+            _market[seedData] = item;
         }
 
 

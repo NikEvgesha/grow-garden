@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
@@ -14,8 +15,16 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
 
     public void Init(Item item)
     {
-        _item = item;
+        if (item == null)
+        {
+            Clear();
+            return;
+        }
+           
 
+
+        _item = item;
+        _icon.gameObject.SetActive(true);
         _icon.sprite = item.Data.Icon;
         if (item.Type == ItemType.Plant && item.TryGetComponent<HarvestablePlant>(out HarvestablePlant plant))
         {
@@ -29,6 +38,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         
     }
 
+
     public void SetAmount(int amount)
     {
         _amount.text = amount.ToString();
@@ -37,5 +47,14 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         //Inventory.Instance.TrySetActive(_item);
+    }
+
+
+
+    private void Clear()
+    {
+        _amount.text = "";
+        _weight.text = "";
+        _icon.gameObject.SetActive(false);
     }
 }

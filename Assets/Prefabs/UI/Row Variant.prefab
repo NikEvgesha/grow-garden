@@ -10,6 +10,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 337977791626673073, guid: ee18dc0e9188ffe418c5118a9cf5db9d, type: 3}
       propertyPath: m_Spacing
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 337977791626673073, guid: ee18dc0e9188ffe418c5118a9cf5db9d, type: 3}
+      propertyPath: m_Padding.m_Top
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 337977791626673073, guid: ee18dc0e9188ffe418c5118a9cf5db9d, type: 3}
@@ -18,23 +22,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 337977791626673073, guid: ee18dc0e9188ffe418c5118a9cf5db9d, type: 3}
       propertyPath: m_Padding.m_Left
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 337977791626673073, guid: ee18dc0e9188ffe418c5118a9cf5db9d, type: 3}
       propertyPath: m_ChildScaleWidth
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 337977791626673073, guid: ee18dc0e9188ffe418c5118a9cf5db9d, type: 3}
       propertyPath: m_Padding.m_Right
-      value: 20
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 337977791626673073, guid: ee18dc0e9188ffe418c5118a9cf5db9d, type: 3}
+      propertyPath: m_Padding.m_Bottom
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 337977791626673073, guid: ee18dc0e9188ffe418c5118a9cf5db9d, type: 3}
       propertyPath: m_ChildControlWidth
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 337977791626673073, guid: ee18dc0e9188ffe418c5118a9cf5db9d, type: 3}
       propertyPath: m_ChildForceExpandWidth
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 337977791626673073, guid: ee18dc0e9188ffe418c5118a9cf5db9d, type: 3}
       propertyPath: m_ChildForceExpandHeight

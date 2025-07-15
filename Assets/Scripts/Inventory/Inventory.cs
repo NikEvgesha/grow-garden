@@ -6,62 +6,10 @@ using UnityEngine;
 [Serializable]
 public struct InventoryItem
 {
-    public ItemData item;
+    public Item item;
     public int amount;
-    public float weight; // for Plants
     public bool active;
 }
-
-
-
-public abstract class Item : MonoBehaviour
-{
-    protected ItemData item;
-    protected float weight;
-    protected ItemType type;
-
-    public ItemType Type => type;
-    public float Weight => weight;
-    public ItemData Data => item;
-
-}
-
-public class HarvestPlantItem : Item
-{
-    private HarvestablePlant plant;
-
-
-    private void Awake()
-    {
-        plant = GetComponent<HarvestablePlant>();
-        type = ItemType.Plant;
-    }
-
-
-    public bool TryHarvest()
-    {
-        item = plant.Data;
-        weight = plant.Weight;
-
-        return Inventory.Instance.Add(this);
-    }
-}
-
-public class SeedItem : Item
-{
-    private Seed seed;
-
-
-    private void Awake()
-    {
-        seed = GetComponent<Seed>();
-        type = ItemType.Seed;
-        weight = 0;
-    }
-
-}
-
-
 
 
 public class Inventory : MonoBehaviour
@@ -72,15 +20,22 @@ public class Inventory : MonoBehaviour
     public static Inventory Instance => _instance;
 
 
-    [SerializeField] private int _capacity = 20;
+    [SerializeField] private int _capacityUsable = 10;
+    [SerializeField] private int _capacityMain = 50;
     [SerializeField] private Transform _handPoint;
+    [SerializeField] private Transform _itemsParent;
 
 
-    private List<Item> _items;
+    private List<Item> _itemsUsable;
+    private List<Item> _itemsMain;
 
-    public int Capacity => _capacity;
+    //private Dictionary<Item, int> _items;
 
-    public Action<List<Item>> InventoryUpdate;
+    public int CapacityUsable => _capacityUsable;
+    public int CapacityMain => _capacityMain;
+
+    public Action<List<Item>> InventoryUsableUpdate;
+    public Action<List<Item>> InventoryMainUpdate;
 
     private void Awake()
     {
@@ -92,7 +47,8 @@ public class Inventory : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        _items = new List<Item>();
+        _itemsUsable = new List<Item>();
+        _itemsMain = new List<Item>();
     }
 
 /*    public bool Add(HarvestablePlant harvestable)
@@ -115,13 +71,30 @@ public class Inventory : MonoBehaviour
 
     public bool Add(Item item)
     {
-        if (CheckEmptySlot())
+
+        bool added = false;
+        if ((item is HarvestPlantItem || item is FishItem) && CheckEmptySlot(true))
         {
-            _items.Add(item);
-            InventoryUpdate?.Invoke(_items);
-            return true;
+            _itemsMain.Add(item);
+            InventoryMainUpdate?.Invoke(_itemsMain);
+            added = true;
         }
-        return false;
+
+        if (item is SeedItem && CheckEmptySlot(false))
+        {
+            _itemsUsable.Add(item);
+            InventoryUsableUpdate?.Invoke(_itemsUsable);
+            added = true;
+        }
+
+        if (added)
+        {
+            item.transform.SetParent(_itemsParent);
+            item.gameObject.SetActive(false);
+        }
+        
+
+        return added;
     }
 
 /*public bool Add(SeedData seed) // add(Seed seed) - сразу инстанцировать и добавлять?
@@ -158,9 +131,10 @@ public class Inventory : MonoBehaviour
         return false;
     }*/
 
-    public bool CheckEmptySlot()
+    public bool CheckEmptySlot(bool inMainInventory)
     {
-        bool res = _capacity > _items.Count;
+
+        bool res = inMainInventory ? _capacityMain > _itemsMain.Count : _capacityUsable > _itemsUsable.Count;
         if (!res)
             GameUI.Instance.Hints.ShowHint(UIHintType.NoSpaceInInventory);
         return res;
@@ -168,13 +142,21 @@ public class Inventory : MonoBehaviour
 
     public ReadOnlyCollection<Item> GetItemsByType(ItemType type)
     {
-        return _items.FindAll(x => x.Type == type).AsReadOnly();
+        return _itemsMain.FindAll(x => x.Type == type).AsReadOnly();
     }
 
     public void RemoveByType(ItemType type)
     {
-        _items.RemoveAll(x => x.Type == type);
-        InventoryUpdate?.Invoke(_items);
+        for (int i = 0; i < _itemsMain.Count; i++)
+        {
+            if (_itemsMain[i].Type == type)
+            {
+                Destroy(_itemsMain[i].gameObject);
+                _itemsMain[i] = null;
+            }
+        }
+        _itemsMain.RemoveAll(x => x == null);
+        InventoryMainUpdate?.Invoke(_itemsMain);
     }
 
 }
