@@ -7,16 +7,16 @@ public class SellPoint : InteractablePoint
 
     public void SellAll()
     {
-        ReadOnlyCollection<Item> items = Inventory.Instance.GetItemsByType(ItemType.Plant);
+        ReadOnlyCollection<InventoryItem> items = Inventory.Instance.GetItemsByType(ItemType.Plant);
 
         int totalProfit = 0;
 
-        foreach (Item item in items)
+        foreach (InventoryItem item in items)
         {
-            if (item.Type is ItemType.Plant)
+            if (item.item.Type is ItemType.Plant)
             {
-                PlantData plantData = (PlantData)item.Data;
-                totalProfit += (int)Mathf.Round(plantData.BaseCost * item.GetComponent<HarvestablePlant>().Weight / plantData.BaseWeight);
+                PlantData plantData = (PlantData)item.item.Data;
+                totalProfit += (int)Mathf.Round(plantData.BaseCost * item.item.GetComponent<HarvestablePlant>().Weight / plantData.BaseWeight);
             }        
         }
 

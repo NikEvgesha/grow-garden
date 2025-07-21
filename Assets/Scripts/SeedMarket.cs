@@ -46,7 +46,7 @@ public class SeedMarket : InteractablePoint
 
     public void TryBuy(SeedData seedData, bool forGems)
     {
-        if (!Inventory.Instance.CheckEmptySlot(inMainInventory: false)) return;
+        if (Inventory.Instance.CheckEmptySlot(inMainInventory: false) == -1) return;
 
         bool bought = CurrencyManager.Instance.RemoveCurrency(
             type: forGems ? CurrencyType.Gems : CurrencyType.Coins,

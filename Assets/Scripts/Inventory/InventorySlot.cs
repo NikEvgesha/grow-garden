@@ -1,19 +1,21 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Image _icon;
     [SerializeField] private Text _amount;
     [SerializeField] private Text _weight;
+    [SerializeField] private GameObject _activeFrame;
 
-    private Item _item;
-    public Item Item => _item;
+    private InventoryItem _item;
+    public InventoryItem Item => _item;
+
+    private int index;
 
 
-    public void Init(Item item)
+/*    public void Init(Item item)
     {
         if (item == null)
         {
@@ -34,8 +36,33 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         {
             _weight.text = "";
             _amount.text = "1";
+        } 
+    }*/
+
+    public void Init(InventoryItem item)
+    {
+        if (item == null)
+        {
+            Clear();
+            return;
         }
-        
+
+
+
+        _item = item;
+        _icon.gameObject.SetActive(true);
+        _icon.sprite = item.item.Data.Icon;
+        if (item.item.Type == ItemType.Plant && item.item.TryGetComponent<HarvestablePlant>(out HarvestablePlant plant))
+        {
+            _weight.text = item.item.Weight.ToString("0.00");
+            _amount.text = "";
+        }
+        else
+        {
+            _weight.text = "";
+            _amount.text = item.amount.ToString();
+        }
+        _activeFrame.SetActive(_item.active);
     }
 
 
@@ -46,7 +73,8 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        //Inventory.Instance.TrySetActive(_item);
+        if (_item != null)
+            Inventory.Instance.TrySetActive(index);
     }
 
 
@@ -56,5 +84,12 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         _amount.text = "";
         _weight.text = "";
         _icon.gameObject.SetActive(false);
+        _activeFrame.SetActive(false);
+        _item = null;
+    }
+
+    public void SetIndex(int idx)
+    {
+        index = idx;
     }
 }

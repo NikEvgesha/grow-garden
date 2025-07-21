@@ -13,6 +13,7 @@ public class InventoryUI : MonoBehaviour
     private List<InventorySlot> _slotsUsable;
     private List<InventorySlot> _slotsMain;
 
+
     private void Awake()
     {
         _slotsUsable = new List<InventorySlot>();
@@ -28,6 +29,7 @@ public class InventoryUI : MonoBehaviour
         {
             InventorySlot slot = Instantiate(_slotPrefab, _slotsParent);
             slot.Init(null);
+            slot.SetIndex(i);
             _slotsUsable.Add(slot);
         }
 
@@ -45,27 +47,9 @@ public class InventoryUI : MonoBehaviour
         Inventory.Instance.InventoryMainUpdate -= UpdateMainUI;
     }
 
-    private void UpdateUI(List<Item> items)
+    private void UpdateUI(List<InventoryItem> items)
     {
-        /*
-                if (_slots.Count > items.Count)
-                {
-                    int slotToRemove = _slots.Count - items.Count;
-                    for (int i = 0; i < slotToRemove; i++)
-                    {
-                        Destroy(_slots[_slots.Count - i - 1].gameObject);
-                    }
-                    _slots.RemoveRange(items.Count, _slots.Count - items.Count);
-                } else if (_slots.Count < items.Count)
-                {
-                    int slotToCreate = items.Count - _slots.Count;
-                    for (int i = 0; i < slotToCreate; i++)
-                    {
-                        InventorySlot slot = Instantiate(_slotPrefab, _slotsParent);
 
-                        _slots.Add(slot);
-                    }
-                }*/
 
         for (int i = 0; i < _slotsUsable.Count; i++)
         {
@@ -81,7 +65,7 @@ public class InventoryUI : MonoBehaviour
     }
 
 
-    private void UpdateMainUI(List<Item> items)
+    private void UpdateMainUI(List<InventoryItem> items)
     {
         for (int i = 0; i < _slotsMain.Count; i++)
         {

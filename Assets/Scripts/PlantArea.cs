@@ -16,8 +16,14 @@ public class PlantArea : MonoBehaviour, IPointerClickHandler
         if (distance < _maxPlantDistance)
         {
             // TODO: Get active seed in hand
-            Plant plant = PlantsManager.Instance.GetPlantInstance(_plant);
-            plant.transform.position = hit.worldPosition;
+            Item activeSeed = Inventory.Instance.GetActiveItem();
+            if (activeSeed != null && activeSeed is SeedItem)
+            {
+                Plant plant = PlantsManager.Instance.GetPlantInstance(((SeedData)(activeSeed.Data)).Plant);
+                plant.transform.position = hit.worldPosition;
+                Inventory.Instance.RemoveInActive();
+            }
+          
         } else
         {
             GameUI.Instance.Hints.ShowHint(UIHintType.TooFar);
