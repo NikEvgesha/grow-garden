@@ -41,7 +41,7 @@ public class FishCatchController : MonoBehaviour
     {
         _fishGameUI = FishGameUI.Instance;
     }
-    public void Begin(Fish fish)
+    public void Begin(FishInfo fish)
     {
         _fishResistance = fish.GetStrong();
         _currentFillRate = Mathf.Max(_fillRate / _fishResistance, 0.01f);
