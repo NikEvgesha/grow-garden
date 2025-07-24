@@ -155,6 +155,8 @@ MonoBehaviour:
   _seeds:
   - {fileID: 11400000, guid: 177717d0857575b41b615691461586f3, type: 2}
   - {fileID: 11400000, guid: 1add6dbad42493c4baf4fe25e44f175f, type: 2}
+  - {fileID: 11400000, guid: 220e8587b8ee1a44c996f756a0515502, type: 2}
+  - {fileID: 11400000, guid: e87701bc8fc83f640839d296a5a81e75, type: 2}
   _slotsParent: {fileID: 3326280224569346794}
   _slotPrefab: {fileID: 2780488414098655697, guid: bba3300381a48834a91e11dd443008a6, type: 3}
 --- !u!1 &2776478962267387741

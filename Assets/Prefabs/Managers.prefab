@@ -44,10 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d50d82e14a160be48a5a00529d86ed69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gemsIcon: {fileID: 21300000, guid: 213897838489d497388d7fd4b68fa02e, type: 3}
-  _coinIcon: {fileID: 21300000, guid: 3378b76f51a00446381fffea167017a1, type: 3}
-  _realIcon: {fileID: 21300000, guid: c245e716cc2914b09b40d64274e619d4, type: 3}
-  StartCoinsAmount: 20
+  _gemsIcon: {fileID: 21300000, guid: 8cb5400400c0cef4eab3e938f2e00ec9, type: 3}
+  _coinIcon: {fileID: 21300000, guid: ab69b02852c06c841aa708f38c012e02, type: 3}
+  _realIcon: {fileID: 21300000, guid: 5f72a57c1a73745cc84715b91cf322d5, type: 3}
+  StartCoinsAmount: 200
   _audioBuy: {fileID: 0}
   _audioSell: {fileID: 0}
   _audioSource: {fileID: 0}

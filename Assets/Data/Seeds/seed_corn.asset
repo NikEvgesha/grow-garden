@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d41139ded55077a4896bb81616b260e2, type: 3}
+  m_Name: seed_corn
+  m_EditorClassIdentifier: 
+  _type: 0
+  _icon: {fileID: 21300000, guid: ef05b95b390274195b66bf50304d7e4a, type: 3}
+  _name: Seed_Corn
+  _maxStackSize: 20
+  _prefab: {fileID: 2964494499675396616, guid: cab0cf0e8c1ea6e49aecf1ab4c51d098, type: 3}
+  _coinPrice: 20
+  _gemPrice: 5
+  _plantData: {fileID: 11400000, guid: d43f3b6f266c5d0499d17357ec5c5045, type: 2}
+  _marketStack: 5

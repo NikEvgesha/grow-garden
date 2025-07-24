@@ -44,8 +44,8 @@ public class Inventory : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        _itemsUsable = Enumerable.Repeat<InventoryItem>(null, _capacityMain).ToList();
-        _itemsMain = Enumerable.Repeat<InventoryItem>(null, _capacityUsable).ToList();
+        _itemsUsable = Enumerable.Repeat<InventoryItem>(null, _capacityUsable).ToList();
+        _itemsMain = Enumerable.Repeat<InventoryItem>(null, _capacityMain).ToList();
     }
 
     public bool Add(Item item)

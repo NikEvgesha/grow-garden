@@ -20,7 +20,6 @@ public class HarvestablePlant : Plant, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!Grown) return;
         Debug.Log("Click on plant");
 
         RaycastResult hit = eventData.pointerCurrentRaycast;
@@ -29,7 +28,10 @@ public class HarvestablePlant : Plant, IPointerClickHandler
 
         if (distance < _maxHarvestDistance)
         {
-            TryHarvest();
+            if (Grown)
+                TryHarvest();
+            else
+                ShowHarvestHint(true);
         }
         else
         {
@@ -40,7 +42,6 @@ public class HarvestablePlant : Plant, IPointerClickHandler
 
     public virtual void TryHarvest()
     {
-        // TODO: collect yo Inventory
         if (!_item.TryHarvest()) return;
 
         if (_spawnPoint != null)
@@ -58,9 +59,10 @@ public class HarvestablePlant : Plant, IPointerClickHandler
 
     public void ShowHarvestHint(bool visible)
     {
-        _harvestCanvas.SetActive(visible);
+        if (Grown)
+            _harvestCanvas.SetActive(visible);
+        else
+            _growCanvas.SetActive(visible);
     }
-
-
 
 }

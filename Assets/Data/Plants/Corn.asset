@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d05e8c9adef3594449258b38c5ab309d, type: 3}
-  m_Name: Bamboo
+  m_Name: Corn
   m_EditorClassIdentifier: 
   _type: 1
-  _icon: {fileID: 21300000, guid: b6e45064e4b68a344b9b25e43987ca66, type: 3}
-  _name: bamboo
+  _icon: {fileID: 21300000, guid: 1ee9704cb6a7d874eb4acc7e19563ad5, type: 3}
+  _name: corn
   _maxStackSize: 0
-  _prefab: {fileID: 5818566490930653712, guid: 2ad65cc79b6a3d7409389ab7278dd72a, type: 3}
+  _prefab: {fileID: 0}
   _harvestable: 1
-  _baseCost: 3
-  _baseWeight: 0.1
-  _plantPrefab: {fileID: 3936577837536981166, guid: 2ad65cc79b6a3d7409389ab7278dd72a, type: 3}
-  _growTimeSeconds: 3
+  _baseCost: 12
+  _baseWeight: 0.5
+  _plantPrefab: {fileID: 3253780665607804275, guid: 2cb42573d76686043868d9605026bdf6, type: 3}
+  _growTimeSeconds: 15

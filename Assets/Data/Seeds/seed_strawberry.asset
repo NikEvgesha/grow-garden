@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d41139ded55077a4896bb81616b260e2, type: 3}
+  m_Name: seed_strawberry
+  m_EditorClassIdentifier: 
+  _type: 0
+  _icon: {fileID: 21300000, guid: 8a56d621460a74f81b51fa56a9c543af, type: 3}
+  _name: Seed_Strawberry
+  _maxStackSize: 20
+  _prefab: {fileID: 4590430617575203723, guid: e797b8baf3602d84699561e446c6080b, type: 3}
+  _coinPrice: 20
+  _gemPrice: 5
+  _plantData: {fileID: 11400000, guid: 525f0d4f5a225f546810010cfe02eb19, type: 2}
+  _marketStack: 5

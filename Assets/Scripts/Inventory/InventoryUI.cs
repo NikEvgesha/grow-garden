@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Transform _slotsParent;
     [SerializeField] private DynamicGridSpawner _grid;
     [SerializeField] private GameObject _mainUI;
+    [SerializeField] private Text _mainCapacityText;
 
 
 
@@ -67,17 +69,14 @@ public class InventoryUI : MonoBehaviour
 
     private void UpdateMainUI(List<InventoryItem> items)
     {
+        int total = 0;
         for (int i = 0; i < _slotsMain.Count; i++)
         {
-            if (i >= items.Count)
-            {
-                _slotsMain[i].Init(null);
-            }
-            else
-            {
-                _slotsMain[i].Init(items[i]);
-            }
+            if (items[i] != null)
+                total++;
+            _slotsMain[i].Init(items[i]);
         }
+        _mainCapacityText.text = total.ToString() + "/" + Inventory.Instance.CapacityMain.ToString();
     }
 
 

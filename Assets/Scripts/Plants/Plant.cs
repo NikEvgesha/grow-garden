@@ -23,6 +23,7 @@ public class Plant : MonoBehaviour
 {
     [SerializeField] protected Transform _growStageObjectsParent;
     [SerializeField] protected List<GrowStage> _growStages;
+    [SerializeField] protected GrowProgress _growProgress;
 
     protected float _weight;
     protected float _weightMultiplier = 1f;
@@ -63,7 +64,9 @@ public class Plant : MonoBehaviour
             while (currentStageTime < stageDuration)
             {
                 currentStageTime += Time.deltaTime;
-                _growStageObjectsParent.transform.localScale = Vector3.one * Mathf.Lerp(0, _weightMultiplier, ((stageDuration * _curentStageIdx) + currentStageTime) / _plantData.GrowTime);
+                float currentProgress = ((stageDuration * _curentStageIdx) + currentStageTime) / _plantData.GrowTime;
+                _growStageObjectsParent.transform.localScale = Vector3.one * Mathf.Lerp(0, _weightMultiplier, currentProgress);
+                _growProgress.SetProgress(currentProgress);
                 yield return null;
             }
             if (_growStages[_curentStageIdx].isFinal) break;
@@ -77,5 +80,6 @@ public class Plant : MonoBehaviour
     protected virtual void OnGrowFinish()
     {
         _isFullyGrown = true;
+        Destroy(_growProgress.gameObject);
     }
 }

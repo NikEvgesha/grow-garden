@@ -61,9 +61,9 @@ public class Harvester : MonoBehaviour
         {
             foreach (Collider collider in colliders)
             {
-                if (collider.transform.parent.parent.TryGetComponent<HarvestablePlant>(out HarvestablePlant harvestable) && harvestable.Grown)
+                if (collider.transform.parent.parent.TryGetComponent<HarvestablePlant>(out HarvestablePlant harvestable))
                 {
-                    harvestable.ShowHarvestHint(true);
+                    harvestable.ShowHarvestHint(true);            
                     _haveActiveCanvas = true;
                     _activePlantCollider = collider;
                     _activeHarvestable = harvestable;
