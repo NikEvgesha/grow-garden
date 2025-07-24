@@ -9,14 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 837ae309bb2485948b83c647bcaa025c, type: 3}
-  m_Name: Fish
+  m_Script: {fileID: 11500000, guid: cc0c17ed9d2dcb2488d2a7a27951c64e, type: 3}
+  m_Name: FishInfo
   m_EditorClassIdentifier: 
-  _type: 0
-  _icon: {fileID: 0}
-  _name: 
-  _maxStackSize: 0
-  _prefab: {fileID: 0}
-  _baseCost: 0
-  _baseWeight: 0
-  _growTimeSeconds: 0
+  _fish: {fileID: 4888317133123157997, guid: 53830d625a3567d4f920a5385b158c4e, type: 3}
+  _strong: 1
+  _difficulty: 0
+  _chance: 100
+  _weightMin: 1
+  _weightMax: 10
+  _priceMultiply: 1

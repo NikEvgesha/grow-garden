@@ -1,11 +1,11 @@
 public class FishItem : Item
 {
-    private Fish fish;
+    private FishInfo _fish;
 
 
     private void Awake()
     {
-        fish = GetComponent<Fish>();
+        _fish = GetComponent<FishInfo>();
         type = ItemType.Fish;
 
     }

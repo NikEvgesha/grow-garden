@@ -129,7 +129,7 @@ public class Fishing : MonoBehaviour
             default: break;
         }
     }
-    public void FindFish(Fish fish)
+    public void FindFish(FishInfo fish)
     {
         SetNewState(FishingState.MiniGame);
         _fishCatchController.Begin(fish);

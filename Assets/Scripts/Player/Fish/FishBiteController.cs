@@ -5,10 +5,10 @@ public class FishBiteController : MonoBehaviour
 {
     [SerializeField] private float _baseWaitTime = 10f;      // базовое время до клева
     [SerializeField] private int _clickRevard = 1;
-    [SerializeField] private Fish _defaultFish;
+    [SerializeField] private FishInfo _defaultFish;
 
     private float _remainingTime;
-    private Fish _fish;
+    private FishInfo _fish;
     public IEnumerator StartWaiting()
     {
         _remainingTime = _baseWaitTime;
